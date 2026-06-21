@@ -1,8 +1,10 @@
 package com.pucetec.securitydev.repository
+
 import com.pucetec.securitydev.entity.Users
-import com.pucetec.securitydev.entity.Verification
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository: JpaRepository<Users,Long>
+interface UserRepository : JpaRepository<Users, Long> {
+    fun findByEmail(email: String): Users?
+}
