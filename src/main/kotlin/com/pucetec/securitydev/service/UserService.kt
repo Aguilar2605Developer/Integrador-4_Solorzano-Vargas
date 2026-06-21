@@ -14,13 +14,8 @@ class UserService(
 
     // Guarda un nuevo estudiante procesando su formulario de Ionic
     fun registerUser(request: UserRequest): UserResponse {
-        // 1. Convertimos el paquete DTO que viene del celular en una Entidad de base de datos
         val userEntity = userMapper.toEntity(request)
-
-        // 2. Persistimos los datos de forma segura en Neon Cloud
         val savedUser = userRepository.save(userEntity)
-
-        // 3. Retornamos la respuesta limpia ocultando la contraseña por seguridad
         return userMapper.toResponse(savedUser)
     }
 
@@ -35,5 +30,20 @@ class UserService(
     fun getUserById(id: Long): UserResponse? {
         val user = userRepository.findById(id).orElse(null) ?: return null
         return userMapper.toResponse(user)
+    }
+
+    // Actualiza los datos de un estudiante existente
+    fun updateUser(id: Long, request: UserRequest): UserResponse? {
+        if (!userRepository.existsById(id)) return null
+        val updatedEntity = userMapper.toEntity(request, id)
+        val savedUser = userRepository.save(updatedEntity)
+        return userMapper.toResponse(savedUser)
+    }
+
+    // Elimina un estudiante por su ID
+    fun deleteUser(id: Long): Boolean {
+        if (!userRepository.existsById(id)) return false
+        userRepository.deleteById(id)
+        return true
     }
 }
