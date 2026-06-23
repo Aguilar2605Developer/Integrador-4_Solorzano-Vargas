@@ -1,16 +1,16 @@
-# 🛡️ SecurityDev
+#  SecurityDev
 
 App de seguridad para el campus: ver y reportar alertas (robos, asaltos, accidentes) en un mapa en tiempo real, con botón de SOS y compartir ubicación.
 
-## 🧱 Stack
+##  Stack
 
 **📱 Frontend** (`SecurityApp`) — Ionic + React + Capacitor → se compila a APK Android y también corre en navegador.
 
-**⚙️ Backend** (`securitydev`) — Kotlin + Spring Boot + JWT, conectado a PostgreSQL en Neon.
+** Backend** (`securitydev`) — Kotlin + Spring Boot + JWT, conectado a PostgreSQL en Neon.
 
-**☁️ Infra** — Backend desplegado en AWS Elastic Beanstalk. Base de datos en Neon.
+** Infra** — Backend desplegado en AWS Elastic Beanstalk. Base de datos en Neon.
 
-## 🔄 Cómo funciona el flujo
+##  Cómo funciona el flujo
 
 1. 🗺️ La app abre directo en el **Mapa**, sin pedir login.
 2. 👀 Cualquiera puede ver el mapa y las alertas activas.
