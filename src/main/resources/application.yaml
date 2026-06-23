@@ -8,3 +8,18 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: aguilarsolor24@gmail.com
+    password: nbftmeavzqlsroev
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+app:
+  frontend:
+    url: http://localhost:8100

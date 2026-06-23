@@ -2,6 +2,7 @@ package com.pucetec.securitydev.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -35,7 +36,19 @@ class SecurityConfig(private val jwtFilter: JwtFilter) {
             .csrf { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests {
-                it.requestMatchers("/api/users/register", "/api/auth/login").permitAll()
+                // Rutas públicas que no requieren token
+                it.requestMatchers(
+                    "/api/users/register",
+                    "/api/auth/login"
+                ).permitAll()
+
+                // GET público — el contacto ve el mapa sin login
+                it.requestMatchers(HttpMethod.GET, "/api/location-shares/*").permitAll()
+
+                // POST público — envío del correo con el link
+                it.requestMatchers(HttpMethod.POST, "/api/location-shares/*/share-email").permitAll()
+
+                // Cualquier otra ruta requiere estar autenticado
                 it.anyRequest().authenticated()
             }
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
