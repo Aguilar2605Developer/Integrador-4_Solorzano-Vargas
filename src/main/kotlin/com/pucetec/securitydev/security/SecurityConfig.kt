@@ -42,6 +42,9 @@ class SecurityConfig(private val jwtFilter: JwtFilter) {
                     "/api/auth/login"
                 ).permitAll()
 
+                // GET público — cualquiera puede ver las alertas activas en el mapa sin login
+                it.requestMatchers(HttpMethod.GET, "/api/hotspots", "/api/hotspots/**").permitAll()
+
                 // GET público — el contacto ve el mapa sin login
                 it.requestMatchers(HttpMethod.GET, "/api/location-shares/*").permitAll()
 
